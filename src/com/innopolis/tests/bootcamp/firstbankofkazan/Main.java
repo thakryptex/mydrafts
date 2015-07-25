@@ -28,10 +28,6 @@ Classes:
 - Transactions
 */
 
-import com.innopolis.tests.bootcamp.firstbankofkazan.enums.CardType;
-import com.innopolis.tests.bootcamp.firstbankofkazan.enums.Sex;
-import com.innopolis.tests.bootcamp.firstbankofkazan.enums.TransactionType;
-
 import java.util.Scanner;
 
 public class Main {
@@ -47,23 +43,26 @@ public class Main {
             case 4 : showTransactionLog();
             case 5 : ...
          */
-
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Загрузка ATM...");
+        System.out.println();
+        System.out.println("Добро пожаловать в Первый Банк Казани!");
         System.out.println();
         System.out.println("Для работы с АТМ Вам необходимо открыть свой аккаунт в нашем Банке.");
         System.out.println("Для этого Вам потребуется ввести следующие данные:");
         System.out.println("Фамилия Имя Отчество, Дата рождения, Пол, Номер паспорта.");
+        System.out.println();
         System.out.println("Вы хотите продолжить?");
         System.out.println("1 - Да");
         System.out.println("2 - Нет");
+
         int i;
         while (true) {
             i = scanner.nextInt();
             if (i == 1 || i == 2) break;
             else {
                 System.out.println("Вам необходимо ввести либо 1 = Да, либо 2 = Нет. Попробуйте ещё раз:");
-                continue;
             }
         }
         if (i == 2) {
@@ -71,11 +70,7 @@ public class Main {
             return;
         }
 
-        People people = new People();
-        System.out.println("Введите Фамилию Имя Отчество");
-        people.setSecondName(scanner.next());
-        people.setFirstName(scanner.next());
-        people.setPatronym(scanner.next());
+        People people = MenuATM.menuCreatePeople();
 
         System.out.println(people);
 

@@ -71,7 +71,7 @@ public class People {
         return passportNum;
     }
 
-    public void setPassportNum(int passportNum) {
+    public void setPassportNum(long passportNum) {
         this.passportNum = passportNum;
     }
 
