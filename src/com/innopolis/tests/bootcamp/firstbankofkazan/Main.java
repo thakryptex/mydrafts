@@ -70,9 +70,19 @@ public class Main {
             return;
         }
 
-        People people = MenuATM.menuCreatePeople();
+        People people = Menu.menuCreatePeople();
 
+        System.out.println("Ваши данные:");
         System.out.println(people);
+        System.out.println();
+
+        System.out.println("Вы успешно прошли регистрацию аккаунта в Первом Банке Казани.");
+        System.out.println("Теперь Вы можете открывать счета в нашем Банке, хранить на них деньги и получать за это проценты.");
+
+        Menu.menuCard(people.getAccount());
+
+        Menu.menuAccountMain(people.getAccount());
+
 
 //        People people = new People(scanner.next(), scanner.next(), scanner.next(), scanner.next(), , scanner.nextInt());
 

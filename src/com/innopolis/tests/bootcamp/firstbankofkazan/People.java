@@ -2,6 +2,7 @@ package com.innopolis.tests.bootcamp.firstbankofkazan;
 
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.Sex;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,7 +56,8 @@ public class People {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) throws ParseException {
+        Date date = dateFormat.parse(dateOfBirth);
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -85,14 +87,10 @@ public class People {
 
     @Override
     public String toString() {
-        return "People{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", patronym='" + patronym + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", sex=" + sex +
-                ", passportNum=" + passportNum +
-                ", account=" + account +
-                '}';
+        return secondName + " " + firstName + " " + patronym +
+                ", пол: " + sex +
+                ", дата рождения: " + dateOfBirth +
+                ", паспорт №: " + passportNum +
+                ", " + account;
     }
 }

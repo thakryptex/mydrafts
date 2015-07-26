@@ -91,4 +91,9 @@ public class Accounts {
     public int getAccountId() {
         return accountId;
     }
+
+    @Override
+    public String toString() {
+        return "аккаунт № " + accountId;
+    }
 }
