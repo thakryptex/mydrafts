@@ -28,6 +28,7 @@ Classes:
 - Transactions
 */
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -67,7 +68,7 @@ public class Main {
         }
         if (i == 2) {
             System.out.println("Без личных данных мы не можем открыть Вам аккаунт в нашем Банке. Всего Вам доброго!");
-            return;
+            System.exit(0);
         }
 
         People people = Menu.menuCreatePeople();

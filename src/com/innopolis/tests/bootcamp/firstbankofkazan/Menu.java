@@ -1,13 +1,17 @@
 package com.innopolis.tests.bootcamp.firstbankofkazan;
 
+import com.innopolis.tests.bootcamp.firstbankofkazan.enums.CardType;
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.Sex;
 
 import java.util.Scanner;
 
 public class Menu {
 
+    private static Scanner scanner = new Scanner(System.in);
+    private static String t;
+    private static int i;
+
     public static People menuCreatePeople() {
-        Scanner scanner = new Scanner(System.in);
         People people = new People();
         System.out.println();
 
@@ -19,7 +23,7 @@ public class Menu {
 
         System.out.println("Пожалуйста, укажите свой пол:");
         do {
-            String t = scanner.nextLine().toUpperCase();
+            t = scanner.nextLine().toUpperCase();
             if (t.equals("MALE") || t.equals("M") || t.equals("М") || t.equals("МУЖСКОЙ")) {
                 people.setSex(Sex.MALE);
                 break;
@@ -73,6 +77,85 @@ public class Menu {
             - make transactions
             - get transactions list
          */
+        System.out.println();
+        if (account.getCards().size() == 0) {
+            System.out.println("Выберите одну из опций:");
+            System.out.println("1 - Узнать больше о типах счетов и условиях");
+            System.out.println("2 - Создать счёт");
+            while (true) {
+                i = scanner.nextInt();
+                if (i == 1) {
+                    menuInfoCardTypes(account);
+                    break;
+                } else if (i == 2) {
+                    menuCreateCard(account);
+                    break;
+                } else System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
+            }
+        } else {
+            //TODO here menu
+            System.out.println("Выберите одну из опций:");
+            System.out.println();
+        }
+    }
+
+    private static void menuInfoCardTypes(Accounts account) {
+        System.out.println();
+        System.out.println("Наш Банк предлагает Вам 3 типа счетов:");
+        System.out.println("1) Chequing: минимальный стартовый вклад - 1000 р., начисляемая сумма - 1000 р./мес.");
+        System.out.println("2) Savings: минимальный стартовый вклад - 50000 р., начисляемая сумма - 5% в мес.");
+        System.out.println("3) Business: минимальный стартовый вклад - 5000000 р., начисляемая сумма - 1% в мес.");
+        System.out.println();
+        System.out.println("Хотите открыть счёт или хотите выйти?");
+        System.out.println("1 - Открыть счёт");
+        System.out.println("2 - Завершить обслуживание");
+        while (true) {
+            i = scanner.nextInt();
+            if (i == 1) {
+                menuCreateCard(account);
+            } else if (i == 2) {
+                System.exit(0);
+            } else System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
+        }
+    }
+
+    private static void menuCreateCard(Accounts account) {
+        System.out.println();
+        System.out.println("Для создания счёта необходимо выбрать один из трёх типов счетов и положить минимальную сумму на счёт.");
+        System.out.println();
+        while (true) {
+            System.out.println("Выберите тип счёта:");
+            System.out.println("1 - Chequing (мин. 1000 р.)");
+            System.out.println("2 - Savings (мин. 50000 р.)");
+            System.out.println("3 - Business (мин. 5000000 р.)");
+            i = scanner.nextInt();
+            if (!(i == 1 || i == 2 || i == 3)) {
+                System.out.println("Опций под введённым Вами номером нет. Выберите 1, 2 или 3.");
+                System.out.println();
+                continue;
+            }
+            System.out.println();
+            System.out.println("Введите сумму, которую хотите положить на счёт:");
+            int j = scanner.nextInt();
+            if ((i == 1 && j < 1000) || (i == 2 && j < 50000) || (i == 3 && j < 5000000)) {
+                System.out.println("Указанная сумма слишком мала для выбранного Вами типа. Попробуйте ещё раз.");
+                System.out.println();
+                continue;
+            }
+            Cards card;
+            switch (i) {
+                case 1:
+                    card = new Cards(account, j, CardType.CHEQUING);
+                    break;
+                case 2:
+                    card = new Cards(account, j, CardType.SAVINGS);
+                    break;
+                case 3:
+                    card = new Cards(account, j, CardType.BUSINESS);
+                    break;
+            }
+            break;
+        }
     }
 
     public static void menuAccountMain(Accounts account) {
@@ -83,5 +166,8 @@ public class Menu {
         - get full balance
         - get full transactions list
          */
+        System.out.println("Главное меню АТМ Первого Банка Казани.");
+        System.out.println("Выберите одну из опций:");
+        //TODO options
     }
 }
