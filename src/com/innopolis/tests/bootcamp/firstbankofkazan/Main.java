@@ -28,22 +28,15 @@ Classes:
 - Transactions
 */
 
+import com.innopolis.tests.bootcamp.firstbankofkazan.enums.TransactionType;
+
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        /*
-        Как должен выглядеть меню в main
-        switch (scanner) {
-            case 0 :
-            case 1 : openAccount();
-            case 2 : createCard();
-            case 3 : makeTransaction();
-            case 4 : showTransactionLog();
-            case 5 : ...
-         */
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Загрузка ATM...");
@@ -80,39 +73,42 @@ public class Main {
         System.out.println("Вы успешно прошли регистрацию аккаунта в Первом Банке Казани.");
         System.out.println("Теперь Вы можете открывать счета в нашем Банке, хранить на них деньги и получать за это проценты.");
 
-        Menu.menuCard(people.getAccount());
+        Menu.menuCards(people.getAccount());
 
         Menu.menuAccountMain(people.getAccount());
 
+        if (people.getAccount().getCards().size() > 0) {
+            Cards card = people.getAccount().getCards().get(0);
+            System.out.println("Введём 4 транзакции с картой...");
+            people.getAccount().makeTransaction(TransactionType.DEPOSIT, card, 666);
+            people.getAccount().makeTransaction(TransactionType.WITHDRAWAL, card, 333);
+            people.getAccount().makeTransaction(TransactionType.DEPOSIT, card, 999);
+            people.getAccount().makeTransaction(TransactionType.WITHDRAWAL, card, 777);
 
-//        People people = new People(scanner.next(), scanner.next(), scanner.next(), scanner.next(), , scanner.nextInt());
+            System.out.println();
+            System.out.println("Пусть Банк выплатит Вам проценты за месяц.");
+            Bank.payInterest(card);
 
-//        System.out.println(people);
+            System.out.println();
+            System.out.println("Логи всех транзакций по карте:");
+            for (int j = 0; j < card.getTransactionLog().size(); j++) {
+                card.getTransactionLog().get(i);
+            }
 
-        /*
-        People Igor = new People("Igor", "Petrenko", "Fatherovich", "11/11/1911", Sex.MALE, 654576);
-        Igor.setAccount(Bank.openAccount(Igor));
-        System.out.println(Igor.getAccount().getCards().size());
-        Igor.getAccount().createCard(9000, CardType.CHEQUING); //TODO как легко определять какая это карта?
-        Igor.getAccount().createCard(55000, CardType.SAVINGS);
-        System.out.println(Igor.getAccount().getCards().size());
-        System.out.println();
-        System.out.println();
+            FileWriter fileWriter;
+            try {
+                fileWriter = new FileWriter("transactions.txt");
+                for (int j = 0; j < card.getTransactionLog().size(); j++) {
+                    fileWriter.write(card.getTransactionLog().get(i).toString());
+                    fileWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        for (int i = 0; i < Igor.getAccount().getCards().size(); i++) { //TODO для вывода списка карт
-            System.out.println(Igor.getAccount().getCards().get(i));
+            //TODO вывод в txt-файл
         }
 
-        int index = scanner.nextInt();
-        int index2 = scanner.nextInt();
 
-        Igor.getAccount().makeTransaction(TransactionType.DEPOSIT, Igor.getAccount().getCards().get(index-1), 1000); //TODO по ID карты наверное лучше
-        Igor.getAccount().makeTransaction(TransactionType.TRANSFER, Igor.getAccount().getCards().get(index - 1), Igor.getAccount().getCards().get(index2 - 1), 1000);
-
-
-        for (int i = 0; i < Igor.getAccount().getCards().get(0).getTransactionLog().size(); i++) {
-            System.out.println(Igor.getAccount().getCards().get(0).getTransactionLog().get(i));
-        }
-        */
     }
 }

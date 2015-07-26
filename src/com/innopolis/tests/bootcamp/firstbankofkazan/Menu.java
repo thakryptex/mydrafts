@@ -2,6 +2,7 @@ package com.innopolis.tests.bootcamp.firstbankofkazan;
 
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.CardType;
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.Sex;
+import com.innopolis.tests.bootcamp.firstbankofkazan.enums.TransactionType;
 
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class Menu {
 
     private static Scanner scanner = new Scanner(System.in);
     private static String t;
-    private static int i;
+    private static int i, j;
 
     public static People menuCreatePeople() {
         People people = new People();
@@ -67,16 +68,7 @@ public class Menu {
         return people;
     }
 
-    public static void menuCard(Accounts account) {
-        /*
-        if (card.size = null)
-            - info
-            - createCard
-        else
-            - get balance
-            - make transactions
-            - get transactions list
-         */
+    public static void menuCards(Accounts account) {
         System.out.println();
         if (account.getCards().size() == 0) {
             System.out.println("Выберите одну из опций:");
@@ -93,9 +85,99 @@ public class Menu {
                 } else System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
             }
         } else {
-            //TODO here menu
-            System.out.println("Выберите одну из опций:");
+            menuShowCardsList(account);
             System.out.println();
+            System.out.println("Введите порядковый № карты, с которой хотите работать:");
+            while (true) {
+                i = scanner.nextInt();
+                if (i < 1 || i > account.getCards().size()) {
+                    System.out.println("Введён неправильный номер. Попробуйте ещё раз.");
+                } else break;
+            }
+            System.out.println();
+            System.out.println(account.getCards().get(i - 1));
+            System.out.println();
+            while (true) {
+                System.out.println("Выберите опцию:");
+                System.out.println("1 - совершить транзакцию");
+                System.out.println("2 - вывести список транзакций");
+                j = scanner.nextInt();
+                if (j == 1) {
+                    menuChooseTransaction(account.getCards().get(i - 1));
+                    break;
+                } else if (j == 2) {
+                    menuPrintCardTransactions(account.getCards().get(i - 1));
+                    break;
+                } else
+                    System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
+            }
+        }
+    }
+
+    private static void menuChooseTransaction(Cards card) {
+        System.out.println();
+        while (true) {
+            System.out.println("Какого типа транзакцию Вы хотите совершить:");
+            System.out.println("1 - Положить деньги на счёт");
+            System.out.println("2 - Снять деньги со счёта");
+            System.out.println("3 - Перевести деньги");
+            i = scanner.nextInt();
+            if (i == 1) {
+                menuMakeTransaction(card, TransactionType.DEPOSIT);
+                break;
+            } else if (i == 2) {
+                menuMakeTransaction(card, TransactionType.WITHDRAWAL);
+                break;
+            } else if (i == 3) {
+                menuMakeTransaction(card, TransactionType.TRANSFER);
+                break;
+            } else
+                System.out.println("Опций под введённым Вами номером нет. Выберите 1, 2 или 3.");
+        }
+    }
+
+    private static void menuMakeTransaction(Cards card, TransactionType type) {
+        System.out.println();
+        while (true) {
+            System.out.println("Введите сумму транзакции:");
+            i = scanner.nextInt();
+            if (i < 0) System.out.println("Сумма не может быть меньше нуля. Введите другую сумму.");
+            else break;
+        }
+        switch (type) {
+            case DEPOSIT:
+                card.getAccount().makeTransaction(type, card, i);
+                break;
+            case WITHDRAWAL:
+                card.getAccount().makeTransaction(type, card, i);
+                break;
+            case TRANSFER:
+                while (true) {
+                    System.out.println("Напишите порядковый № карты, на которую Вы хотите перевести средства:");
+                    menuShowCardsList(card.getAccount());
+                    j = scanner.nextInt();
+                    if (j < 1 || j > card.getAccount().getCards().size()) {
+                        System.out.println("Введен неправильный номер. Попробуйте ещё раз.");
+                    }
+                    else break;
+                }
+                card.getAccount().makeTransaction(type, card, card.getAccount().getCards().get(j - 1), i);
+                break;
+        }
+    }
+
+    private static void menuPrintCardTransactions(Cards cards) {
+        System.out.println();
+        System.out.println("Транзакции карты " + cards.getCardId() + ":");
+        for (int k = 0; k < cards.getTransactionLog().size(); k++) {
+            cards.getTransactionLog().get(i);
+        }
+    }
+
+    private static void menuShowCardsList(Accounts account) {
+        System.out.println();
+        for (int k = 0; k < account.getCards().size(); k++) {
+            System.out.println(account.getCards().get(k));
         }
     }
 
@@ -136,7 +218,7 @@ public class Menu {
             }
             System.out.println();
             System.out.println("Введите сумму, которую хотите положить на счёт:");
-            int j = scanner.nextInt();
+            j = scanner.nextInt();
             if ((i == 1 && j < 1000) || (i == 2 && j < 50000) || (i == 3 && j < 5000000)) {
                 System.out.println("Указанная сумма слишком мала для выбранного Вами типа. Попробуйте ещё раз.");
                 System.out.println();
@@ -159,15 +241,29 @@ public class Menu {
     }
 
     public static void menuAccountMain(Accounts account) {
-        /*
-        - create/close cards
-        - get cards list
-        - go to cardMenu
-        - get full balance
-        - get full transactions list
-         */
-        System.out.println("Главное меню АТМ Первого Банка Казани.");
-        System.out.println("Выберите одну из опций:");
-        //TODO options
+        System.out.println();
+        while (true) {
+            System.out.println("Главное меню АТМ Первого Банка Казани.");
+            System.out.println("Выберите одну из опций:");
+            System.out.println("1 - Создать/закрыть счёт");
+            System.out.println("2 - Операции со счетами");
+            System.out.println("3 - Посмотреть полный баланс аккаунта");
+            System.out.println("4 - Получить полный список транзакций по всем счетам аккаунта");
+            i = scanner.nextInt();
+            if (i == 1) { //TODO сделать все эти операции
+                System.out.println("1 - Создать/закрыть счёт");
+                break;
+            } else if (i == 2) {
+                System.out.println("2 - Операции со счетами");
+                break;
+            } else if (i == 3) {
+                System.out.println("3 - Посмотреть полный баланс аккаунта");
+                break;
+            } else if (i == 4) {
+                System.out.println("4 - Получить полный список транзакций по всем счетам аккаунта");
+                break;
+            } else
+                System.out.println("Опций под введённым Вами номером нет. Выберите 1, 2, 3 и 4.");
+        }
     }
 }
