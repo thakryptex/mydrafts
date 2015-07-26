@@ -87,10 +87,15 @@ public class People {
 
     @Override
     public String toString() {
-        return secondName + " " + firstName + " " + patronym +
-                ", пол: " + sex +
-                ", дата рождения: " + dateOfBirth +
-                ", паспорт №: " + passportNum +
-                ", " + account;
+        if (this.account == null)
+            return secondName + " " + firstName + " " + patronym +
+                    ", пол: " + sex +
+                    ", дата рождения: " + dateOfBirth +
+                    ", паспорт №: " + passportNum;
+            return secondName + " " + firstName + " " + patronym +
+                    ", пол: " + sex +
+                    ", дата рождения: " + dateOfBirth +
+                    ", паспорт №: " + passportNum +
+                    ", " + account.toString().toLowerCase();
     }
 }

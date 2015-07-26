@@ -64,10 +64,10 @@ public class Accounts {
             }
             switch (type) {
                 case DEPOSIT:
-                    Transactions.deposit(money, card, card.getTransactionLog().size());
+                    Transactions.deposit(money, card, card.getTransactionLog().size()+1);
                     break;
                 case WITHDRAWAL:
-                    Transactions.withdrawal(money, card, card.getTransactionLog().size());
+                    Transactions.withdrawal(money, card, card.getTransactionLog().size()+1);
                     break;
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class Accounts {
     public void makeTransaction(TransactionType type, Cards card1, Cards card2, double money) {
         try {
             if (card1.getTransactionLog().size() >= 100) throw new TooManyTransactionsException("Вы израсходовали лимит транзакций за этот месяц. Пожалуйста, дождитесь следующего месяца.");
-            Transactions.transfer(money, card1, card2, card1.getTransactionLog().size(), card2.getTransactionLog().size());
+            Transactions.transfer(money, card1, card2, card1.getTransactionLog().size()+1, card2.getTransactionLog().size()+1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -92,8 +92,12 @@ public class Accounts {
         return accountId;
     }
 
+    public People getOwner() {
+        return people;
+    }
+
     @Override
     public String toString() {
-        return "аккаунт № " + accountId;
+        return "Аккаунт № " + accountId;
     }
 }

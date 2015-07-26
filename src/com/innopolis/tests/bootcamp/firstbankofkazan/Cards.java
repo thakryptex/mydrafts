@@ -116,9 +116,9 @@ public class Cards {
 
     @Override
     public String toString() {
-        return "Аккаунт № " + String.format("%06d",account.getAccountId()) +
+        return "Аккаунт №" + String.format("%06d",account.getAccountId()) +
                 ", #" + (account.getCards().indexOf(this)+1) +
-                ", Card № " + String.format("%06d",cardId) +
+                ", Card №" + String.format("%06d",cardId) +
                 ", тип карты: " + type +
                 ", баланс: " + money +
                 ", дата создания: " + countingDate;

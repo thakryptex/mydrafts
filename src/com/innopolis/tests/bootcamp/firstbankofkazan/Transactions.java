@@ -84,26 +84,26 @@ public class Transactions {
     @Override
     public String toString() { //TODO сделать вывод текста через if по типам
         switch (type) {
-            case TRANSFER: return "Транзакция № " + String.format("%03d", id1) +
-                                    ", дата:" + dateOfTransaction +
-                                    ", тип:" + type +
+            case TRANSFER: return "Транзакция №" + String.format("%03d", id1) +
                                     ", карта № 1: " + card1.getCardId() +
                                     ", карта № 2: " + card2.getCardId() +
+                                    ", дата: " + dateOfTransaction +
+                                    ", тип: " + type +
                                     ", сумма: " + money;
-            case DEPOSIT: return "Транзакция № " + String.format("%03d", id1) +
-                                    ", дата:" + dateOfTransaction +
-                                    ", тип:" + type +
-                                    ", карта № : " + card1.getCardId() +
+            case DEPOSIT: return "Транзакция №" + String.format("%03d", id1) +
+                                    ", карта №" + card1.getCardId() +
+                                    ", дата: " + dateOfTransaction +
+                                    ", тип: " + type +
                                     ", сумма: " + money;
-            case WITHDRAWAL: return "Транзакция № " + String.format("%03d", id1) +
-                                    ", дата:" + dateOfTransaction +
-                                    ", тип:" + type +
-                                    ", карта № : " + card1.getCardId() +
+            case WITHDRAWAL: return "Транзакция №" + String.format("%03d", id1) +
+                                    ", карта №" + card1.getCardId() +
+                                    ", дата: " + dateOfTransaction +
+                                    ", тип: " + type +
                                     ", сумма: " + money;
-            default: return "Транзакция № " + String.format("%03d", id1) +
-                                    ", дата:" + dateOfTransaction +
-                                    ", тип:" + type +
-                                    ", карта № : " + card1.getCardId() +
+            default: return "Транзакция №" + String.format("%03d", id1) +
+                                    ", карта №" + card1.getCardId() +
+                                    ", дата: " + dateOfTransaction +
+                                    ", тип: " + type +
                                     ", сумма: " + money;
         }
     }

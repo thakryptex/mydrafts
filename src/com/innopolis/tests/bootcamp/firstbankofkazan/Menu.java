@@ -4,6 +4,8 @@ import com.innopolis.tests.bootcamp.firstbankofkazan.enums.CardType;
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.Sex;
 import com.innopolis.tests.bootcamp.firstbankofkazan.enums.TransactionType;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -195,6 +197,7 @@ public class Menu {
             i = scanner.nextInt();
             if (i == 1) {
                 menuCreateCard(account);
+                break;
             } else if (i == 2) {
                 System.exit(0);
             } else System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
@@ -227,17 +230,18 @@ public class Menu {
             Cards card;
             switch (i) {
                 case 1:
-                    card = new Cards(account, j, CardType.CHEQUING);
+                    account.createCard(j, CardType.CHEQUING);
                     break;
                 case 2:
-                    card = new Cards(account, j, CardType.SAVINGS);
+                    account.createCard(j, CardType.SAVINGS);
                     break;
                 case 3:
-                    card = new Cards(account, j, CardType.BUSINESS);
+                    account.createCard(j, CardType.BUSINESS);
                     break;
             }
             break;
         }
+        System.out.println("Операция проведена успешно.");
     }
 
     public static void menuAccountMain(Accounts account) {
@@ -249,6 +253,7 @@ public class Menu {
             System.out.println("2 - Операции со счетами");
             System.out.println("3 - Посмотреть полный баланс аккаунта");
             System.out.println("4 - Получить полный список транзакций по всем счетам аккаунта");
+            System.out.println("5 - Выйти");
             i = scanner.nextInt();
             if (i == 1) { //TODO сделать все эти операции
                 System.out.println("1 - Создать/закрыть счёт");
@@ -262,8 +267,43 @@ public class Menu {
             } else if (i == 4) {
                 System.out.println("4 - Получить полный список транзакций по всем счетам аккаунта");
                 break;
+            } else if (i == 5) {
+                System.exit(0);
             } else
-                System.out.println("Опций под введённым Вами номером нет. Выберите 1, 2, 3 и 4.");
+                System.out.println("Опций под введённым Вами номером нет. Выберите 1, 2, 3 или 4.");
         }
+    }
+
+    public static void menuSaveTransactionLogsIntoTxt(Cards card) {
+        System.out.println();
+        while (true) {
+            System.out.println("Вы хотите сохранить все операции по карте в файл?");
+            System.out.println("1 - Да");
+            System.out.println("2 - Нет");
+            i = scanner.nextInt();
+            if (i == 1) break;
+            else if (i == 2) System.exit(0);
+            else System.out.println("Опций под введённым Вами номером нет. Выберите 1 или 2.");
+        }
+        System.out.println();
+        System.out.print("Сохраняю...");
+        System.out.print(".");
+        System.out.print(".");
+        System.out.print(".");
+        System.out.println();
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter("transactions.txt");
+            fileWriter.write(card.getAccount().getOwner().toString() + "\n \n" +
+                    card.getAccount().toString() + ": \n \n" +
+                    "Логи всех транзакций по карте №" + String.format("%06d", card.getCardId()) + ": \n");
+            for (int j = 0; j < card.getTransactionLog().size(); j++) {
+                fileWriter.append(card.getTransactionLog().get(j).toString()+"\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Сохранено.");
     }
 }
