@@ -22,7 +22,7 @@ public class Cards {
     private double[] arrayDailyBalance = new double[30];
     private ArrayList<Transactions> transactionLog = new ArrayList<>();
 
-
+    // конструктор карты также фиксирует дату создания карты
     public Cards(Accounts account, double money, CardType type) {
         this.account = account;
         this.money = money;
@@ -51,6 +51,7 @@ public class Cards {
         return account;
     }
 
+    // список всех транзакций карты
     public ArrayList<Transactions> getTransactionLog() {
         return transactionLog;
     }
@@ -75,16 +76,19 @@ public class Cards {
         return date;
     }
 
+    // получить день года для расчёта процентов
     private int getDayOfMonth(Date date) {
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_YEAR);
     }
 
+    // метод заполняет пустые элементы массива данными о балансе на тот день
     public void recordDailyBalance(Date date, double money) {
         int index = getDayOfMonth(date) - getDayOfMonth(getDate(countingDate)); //TODO сделать фикс для другого года (1 дата - 2015, 2 дата - 2016)
         this.arrayDailyBalance[index] = money;
     }
 
+    // возвращает сумму для оплаты процентов от Банка
     public double calculateInterest() {
         if (this.type.equals(CardType.CHEQUING)) return 1000;
         int day1 = this.getDayOfMonth(getDate(countingDate));
@@ -101,6 +105,7 @@ public class Cards {
         return payment;
     }
 
+    // считает конкретную сумму платежа по процентам, основываясь на полном массиве данных о состоянии счёта на каждый день
     private double calculatePaymentOnPercents(int i) {
         double payment = 0;
         switch (this.type) {
@@ -113,6 +118,7 @@ public class Cards {
         }
         return payment;
     }
+
 
     @Override
     public String toString() {

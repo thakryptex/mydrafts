@@ -20,6 +20,7 @@ public class Transactions {
     private String dateOfTransaction;
     private static SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd.MM.yyyy");
 
+    // конструктор транзакций (deposit, withdrawal) также фиксирует время транзакции
     private Transactions(TransactionType type, Cards card1, double money, int id) {
         this.type = type;
         this.card1 = card1;
@@ -30,6 +31,7 @@ public class Transactions {
         card1.recordDailyBalance(date, money);
     }
 
+    // конструктор транзакций (transfer) также фиксирует время транзакции
     private Transactions(TransactionType type, Cards card1, Cards card2, double money, int id1, int id2) {
         this.type = type;
         this.card1 = card1;
@@ -85,26 +87,26 @@ public class Transactions {
     public String toString() { //TODO сделать вывод текста через if по типам
         switch (type) {
             case TRANSFER: return "Транзакция №" + String.format("%03d", id1) +
-                                    ", карта № 1: " + card1.getCardId() +
-                                    ", карта № 2: " + card2.getCardId() +
+                                    ", карта № " + card1.getCardId() +
                                     ", дата: " + dateOfTransaction +
+                                    ", сумма: " + money +
                                     ", тип: " + type +
-                                    ", сумма: " + money;
+                                    ", на карту №" + card2.getCardId();
             case DEPOSIT: return "Транзакция №" + String.format("%03d", id1) +
                                     ", карта №" + card1.getCardId() +
                                     ", дата: " + dateOfTransaction +
-                                    ", тип: " + type +
-                                    ", сумма: " + money;
+                                    ", сумма: " + money +
+                                    ", тип: " + type;
             case WITHDRAWAL: return "Транзакция №" + String.format("%03d", id1) +
                                     ", карта №" + card1.getCardId() +
                                     ", дата: " + dateOfTransaction +
-                                    ", тип: " + type +
-                                    ", сумма: " + money;
+                                    ", сумма: -" + money +
+                                    ", тип: " + type;
             default: return "Транзакция №" + String.format("%03d", id1) +
                                     ", карта №" + card1.getCardId() +
                                     ", дата: " + dateOfTransaction +
-                                    ", тип: " + type +
-                                    ", сумма: " + money;
+                                    ", сумма: " + money +
+                                    ", тип: " + type;
         }
     }
 }

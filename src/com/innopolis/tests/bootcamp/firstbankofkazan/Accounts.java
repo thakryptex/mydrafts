@@ -11,19 +11,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Accounts {
+    // минимальные суммы для вкладов при создании счетов разных типов
     private static final int CHEQUING_MIN = 1000;
     private static final int SAVINGS_MIN = 50000;
     private static final int BUSINESS_MIN = 5000000;
 
     private int accountId;
     private People people;
-    private List<Cards> cards = new ArrayList<>();
+    private List<Cards> cards = new ArrayList<>(); // список карт, принадлежащих аккаунту
 
     public Accounts(People people) {
         this.people = people;
-        accountId = (int) (Math.random() * 1000000);
+        accountId = (int) (Math.random() * 1000000); // рандомный id для аккаунта
     }
 
+    // метод создания карты с проверкой на минимальный вклад
     public void createCard(double money, CardType type) {
         try {
             switch (type) {
@@ -57,6 +59,7 @@ public class Accounts {
         cards.remove(cardId);
     }
 
+    // метод для создания транзакций типа deposit, withdrawal
     public void makeTransaction(TransactionType type, Cards card, double money) {
         try {
             if (card.getTransactionLog().size() >= 100) {
@@ -75,6 +78,7 @@ public class Accounts {
         }
     }
 
+    // метод для создания транзакций типа transfer
     public void makeTransaction(TransactionType type, Cards card1, Cards card2, double money) {
         try {
             if (card1.getTransactionLog().size() >= 100) throw new TooManyTransactionsException("Вы израсходовали лимит транзакций за этот месяц. Пожалуйста, дождитесь следующего месяца.");

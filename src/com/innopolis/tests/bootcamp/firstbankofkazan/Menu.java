@@ -14,6 +14,7 @@ public class Menu {
     private static String t;
     private static int i, j;
 
+    // меню создания человека и аккаунта
     public static People menuCreatePeople() {
         People people = new People();
         System.out.println();
@@ -70,6 +71,7 @@ public class Menu {
         return people;
     }
 
+    // меню работы с картами
     public static void menuCards(Accounts account) {
         System.out.println();
         if (account.getCards().size() == 0) {
@@ -116,6 +118,7 @@ public class Menu {
         }
     }
 
+    // меню выбора транзакций
     private static void menuChooseTransaction(Cards card) {
         System.out.println();
         while (true) {
@@ -138,6 +141,7 @@ public class Menu {
         }
     }
 
+    // меню создания транзакции
     private static void menuMakeTransaction(Cards card, TransactionType type) {
         System.out.println();
         while (true) {
@@ -168,6 +172,7 @@ public class Menu {
         }
     }
 
+    // вывод транзакций на экран
     private static void menuPrintCardTransactions(Cards cards) {
         System.out.println();
         System.out.println("Транзакции карты " + cards.getCardId() + ":");
@@ -176,6 +181,7 @@ public class Menu {
         }
     }
 
+    // вывод списка карт на экран
     private static void menuShowCardsList(Accounts account) {
         System.out.println();
         for (int k = 0; k < account.getCards().size(); k++) {
@@ -183,6 +189,7 @@ public class Menu {
         }
     }
 
+    // меню информации о счетах
     private static void menuInfoCardTypes(Accounts account) {
         System.out.println();
         System.out.println("Наш Банк предлагает Вам 3 типа счетов:");
@@ -204,6 +211,7 @@ public class Menu {
         }
     }
 
+    // меню создания карты
     private static void menuCreateCard(Accounts account) {
         System.out.println();
         System.out.println("Для создания счёта необходимо выбрать один из трёх типов счетов и положить минимальную сумму на счёт.");
@@ -244,6 +252,7 @@ public class Menu {
         System.out.println("Операция проведена успешно.");
     }
 
+    // меню главного меню АТМ
     public static void menuAccountMain(Accounts account) {
         System.out.println();
         while (true) {
@@ -274,6 +283,7 @@ public class Menu {
         }
     }
 
+    // меню создания txt-файла со списком транзакций
     public static void menuSaveTransactionLogsIntoTxt(Cards card) {
         System.out.println();
         while (true) {
@@ -298,7 +308,7 @@ public class Menu {
                     card.getAccount().toString() + ": \n \n" +
                     "Логи всех транзакций по карте №" + String.format("%06d", card.getCardId()) + ": \n");
             for (int j = 0; j < card.getTransactionLog().size(); j++) {
-                fileWriter.append(card.getTransactionLog().get(j).toString()+"\n");
+                fileWriter.append((j+1) + ") " + card.getTransactionLog().get(j).toString()+"\n");
             }
             fileWriter.close();
         } catch (IOException e) {

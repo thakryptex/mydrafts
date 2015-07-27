@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Bank {
     private static ArrayList<Accounts> accountsList = new ArrayList<>(); // должен быть не больше 100
 
+    // создание аккаунта для человека с проверкой (не более 100 аккаунтов у Банка)
     public static Accounts openAccount(People people) {
         try {
             if (accountsList.size() == 100)
@@ -24,9 +25,10 @@ public class Bank {
         people.setAccount(null);
     }
 
+    // оплата процентов на карту клиенту
     public static void payInterest(Cards card) {
-        double money = card.calculateInterest();
-        Transactions.interest(card, money, card.getTransactionLog().size());
+        double money = card.calculateInterest(); // метод считает сколько нужно оплатить
+        Transactions.interest(card, money, card.getTransactionLog().size()+1); // создаёт транзакцию
     }
 
     public static ArrayList<Accounts> getAccountsList() {
