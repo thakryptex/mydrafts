@@ -1,7 +1,5 @@
 package com.innopolis.tests.bootcamp.battleship;
 
-import com.innopolis.tests.bootcamp.battleship.ships.FourCellShip;
-
 import java.util.Random;
 
 public class Generator {
