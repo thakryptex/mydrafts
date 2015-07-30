@@ -7,7 +7,7 @@ import com.innopolis.tests.bootcamp.battleship.ships.TwoCellShip;
 
 import java.util.ArrayList;
 
-public abstract class Ships {
+public class Ship {
 
     static int counterP1 = OneCellShip.counterP1 + TwoCellShip.counterP1 + ThreeCellShip.counterP1 + FourCellShip.counterP1;
     static int counterP2 = OneCellShip.counterP2 + TwoCellShip.counterP2 + ThreeCellShip.counterP2 + FourCellShip.counterP2;
@@ -16,9 +16,8 @@ public abstract class Ships {
     protected ArrayList<Cell> cells = new ArrayList<>();
     protected Player player;
 
-    public Ships(Player player, int decksLeft) {
+    public Ship(Player player) {
         this.player = player;
-        this.decksLeft = decksLeft;
     }
 
     public void damaged() {

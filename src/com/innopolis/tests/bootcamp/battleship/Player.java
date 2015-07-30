@@ -1,16 +1,16 @@
 package com.innopolis.tests.bootcamp.battleship;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class Player {
 
     protected String name;
-    protected ArrayList<Cell[]> ships = new ArrayList<>();
-     Map<String, Integer> mapCounter = new HashMap<>();
+    protected ArrayList<Ship> ships = new ArrayList<>();
     protected Field playerField;
     protected Field enemyTemplate;
+
+    public Player() {
+    }
 
     public void createField() {
         this.playerField = new Field(this);
@@ -55,7 +55,7 @@ public abstract class Player {
         this.name = name;
     }
 
-    public ArrayList<Cell[]> getShips() {
+    public ArrayList<Ship> getShips() {
         return ships;
     }
 }

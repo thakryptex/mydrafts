@@ -1,16 +1,16 @@
 package com.innopolis.tests.bootcamp.battleship.ships;
 
 import com.innopolis.tests.bootcamp.battleship.Player;
-import com.innopolis.tests.bootcamp.battleship.Ships;
+import com.innopolis.tests.bootcamp.battleship.Ship;
 
-public class FourCellShip extends Ships {
+public class FourCellShip extends Ship {
 
     public static int counterP1;
     public static int counterP2;
 
 
-    public FourCellShip(Player player, int decksLeft) {
-        super(player, decksLeft);
+    public FourCellShip(Player player) {
+        super(player);
         this.decksLeft = 4;
     }
 
