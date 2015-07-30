@@ -40,13 +40,15 @@ public class Console {
             char c1 = string.charAt(0);
             char c2;
             int column = c1 % 64;
-            int row;
-            if (string.length() > 2 && string.charAt(1) == 1 && string.charAt(2) == 0)
-                row = 10;
-            else {
+            int row = 11;
+            if (string.length() > 2) {
+                String ten = string.substring(1, string.length());
+                row = Integer.parseInt(ten);
+            } else if (string.length() == 2){
                 c2 = string.charAt(1);
                 row = c2 % 48;
             }
+            if (column > 10 || row > 10) continue;
             cell = victim.getPlayerField().getCellsArray()[row][column];
             if (cell.getState().equals(Cell.CellState.SHOOTED) || cell.getState().equals(Cell.CellState.DAMAGED))
                 continue;

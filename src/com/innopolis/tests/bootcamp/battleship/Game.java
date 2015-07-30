@@ -52,11 +52,15 @@ public class Game {
                 Console.doShotAI(theGame.ai, theGame.human);
             }
             if (theGame.human.ships.size() == 0) {
+                System.out.println("========================");
                 System.out.println("Победил " + theGame.ai);
+                System.out.println("========================");
                 endGame();
             }
             if (theGame.ai.ships.size() == 0) {
+                System.out.println("========================");
                 System.out.println("Победил " + theGame.human);
+                System.out.println("========================");
                 endGame();
             }
             System.out.println();

@@ -14,8 +14,8 @@ public class Ship {
     }
 
     public void damagedBy(Player attacker) {
+        decksLeft--;
         if (decksLeft > 0) {
-            decksLeft--;
             System.out.println("-> " + attacker + " ранил " + this);
         }
         else this.destroyedBy(attacker);
@@ -38,7 +38,7 @@ public class Ship {
         }
         cells.clear();
         player.ships.remove(this);
-        System.out.println("-> " + this.toString() + " уничтожен.");
+        System.out.println("-> " + this.toString() + " уничтожен. Осталось: " + player.ships.size());
     }
 
     @Override
