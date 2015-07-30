@@ -1,8 +1,9 @@
 package com.innopolis.tests.bootcamp.battleship;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class PlayerAI extends Player {
+public class PlayerAI extends Player implements Serializable {
 
     private static Random random = new Random();
 

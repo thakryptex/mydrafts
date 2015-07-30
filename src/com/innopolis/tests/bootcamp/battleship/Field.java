@@ -1,6 +1,8 @@
 package com.innopolis.tests.bootcamp.battleship;
 
-public class Field {
+import java.io.Serializable;
+
+public class Field implements Serializable {
 
     private Cell[][] field;
     private Player player;

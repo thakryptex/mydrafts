@@ -1,6 +1,8 @@
 package com.innopolis.tests.bootcamp.battleship;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
 
     public enum CellState {
         EMPTY('~'), OREOL('~'), SHIPPED('•'), SHOOTED('o'), DAMAGED('X');

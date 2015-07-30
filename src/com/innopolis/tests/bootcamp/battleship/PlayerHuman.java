@@ -1,6 +1,8 @@
 package com.innopolis.tests.bootcamp.battleship;
 
-public class PlayerHuman extends Player {
+import java.io.Serializable;
+
+public class PlayerHuman extends Player implements Serializable {
 
     public PlayerHuman() {
         this.name = "Human";

@@ -1,8 +1,9 @@
 package com.innopolis.tests.bootcamp.battleship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Player {
+public abstract class Player implements Serializable {
 
     protected String name;
     protected ArrayList<Ship> ships = new ArrayList<>();
@@ -27,9 +28,7 @@ public abstract class Player {
             Game.getTheGame().setPlayerTurn(Game.getTheGame().isPlayerTurn() ? false : true);
         } else {
             if (cell.getState().equals(Cell.CellState.SHIPPED)) {
-                cell.setState(Cell.CellState.DAMAGED);
-                cell.getShip().damagedBy(attacker);
-                attacker.getEnemyTemplate().getCell(cell.getY(), cell.getX()).setState(Cell.CellState.DAMAGED);
+                cell.getShip().damagedBy(attacker, cell);
             }
         }
     }

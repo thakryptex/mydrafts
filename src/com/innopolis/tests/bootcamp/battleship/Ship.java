@@ -1,8 +1,9 @@
 package com.innopolis.tests.bootcamp.battleship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ship {
+public class Ship implements Serializable {
 
     protected int decksLeft;
     protected ArrayList<Cell> cells = new ArrayList<>();
@@ -13,7 +14,9 @@ public class Ship {
         this.decksLeft = decksLeft;
     }
 
-    public void damagedBy(Player attacker) {
+    public void damagedBy(Player attacker, Cell cell) {
+        cell.setState(Cell.CellState.DAMAGED);
+        attacker.getEnemyTemplate().getCell(cell.getY(), cell.getX()).setState(Cell.CellState.DAMAGED);
         decksLeft--;
         if (decksLeft > 0) {
             System.out.println("-> " + attacker + " ранил " + this);
@@ -21,14 +24,16 @@ public class Ship {
         else this.destroyedBy(attacker);
     }
 
-    public void destroyedBy(Player attacker) {
+    public void destroyedBy(Player attacker) { // TODO какого-то ху€ он не делает ореол
         for (int i = 0; i < cells.size(); i++) {
             int x = cells.get(i).getX();
             int y = cells.get(i).getY();
             for (int j = y-1; j <= y+1; j++) {
                 for (int k = x-1; k <= x+1; k++) {
-                    player.getPlayerField().getCell(y, x).setState(Cell.CellState.SHOOTED);
-                    attacker.getEnemyTemplate().getCell(y, x).setState(Cell.CellState.SHOOTED);
+                    player.getPlayerField().getCell(j, k).setState(Cell.CellState.SHOOTED);
+                    attacker.getEnemyTemplate().getCell(j, k).setState(Cell.CellState.SHOOTED);
+//                    player.getEnemyTemplate().getCell(j, k).setState(Cell.CellState.SHOOTED);
+//                    attacker.getPlayerField().getCell(j, k).setState(Cell.CellState.SHOOTED);
                 }
             }
             for (int j = 0; j < cells.size(); j++) {

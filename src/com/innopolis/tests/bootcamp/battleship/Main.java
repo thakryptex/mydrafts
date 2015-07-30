@@ -2,13 +2,14 @@ package com.innopolis.tests.bootcamp.battleship;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        //TODO сделать save
-        Game.newGame();
+        int i = Console.launchGame();
+
+        if (i == 1) Game.newGame();
+        if (i == 2) Console.printFields(Game.getTheGame().getHuman());
 
         Game.playGame();
-
 
     }
 }

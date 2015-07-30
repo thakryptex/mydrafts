@@ -1,8 +1,9 @@
 package com.innopolis.tests.bootcamp.battleship;
 
+import java.io.*;
 import java.util.Random;
 
-public class Game {
+public class Game implements Serializable {
 
     private static Game theGame;
     private static Random random = new Random();
@@ -43,7 +44,7 @@ public class Game {
         Console.printFields(human);
     }
 
-    public static void playGame() {
+    public static void playGame() throws Exception {
         while (theGame.playing) {
             System.out.println();
             if (theGame.playerTurn) {
@@ -68,9 +69,30 @@ public class Game {
         }
     }
 
+    public static Game loadGame() throws Exception {
+        Game game = new Game();
+        FileInputStream fileInputStream = new FileInputStream("save.txt");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        game = (Game) objectInputStream.readObject();
+        objectInputStream.close();
+        fileInputStream.close();
+        return game;
+    }
+
+    public static void saveGame(Game game) throws Exception {
+        FileOutputStream fileOutputStream = new FileOutputStream("save.txt");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(game);
+        objectOutputStream.close();
+        objectOutputStream.close();
+    }
 
     public static Game getTheGame() {
         return theGame;
+    }
+
+    public static void setTheGame(Game theGame) {
+        Game.theGame = theGame;
     }
 
     public boolean isPlayerTurn() {
