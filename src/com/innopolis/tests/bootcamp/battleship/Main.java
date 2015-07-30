@@ -7,9 +7,8 @@ public class Main {
         //TODO сделать save
         Game.newGame();
 
-//        Game.playGame();
+        Game.playGame();
 
-//        Game.endGame();
 
     }
 }

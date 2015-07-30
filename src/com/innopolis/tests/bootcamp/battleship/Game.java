@@ -1,16 +1,19 @@
 package com.innopolis.tests.bootcamp.battleship;
 
+import java.util.Random;
+
 public class Game {
 
-    private static Game game;
+    private static Game theGame;
+    private static Random random = new Random();
 
-    private boolean playersTurn;
+    private boolean playerTurn;
     private boolean playing;
     private PlayerHuman human;
     private PlayerAI ai;
 
-    private Game() {
-        this.playersTurn = true;
+    public Game() {
+        this.playerTurn = true;
         this.playing = true;
         this.human = new PlayerHuman();
         this.ai = new PlayerAI();
@@ -19,15 +22,16 @@ public class Game {
 
     public static void newGame() {
         Game game = new Game();
+        theGame = game;
         game.startGame();
     }
 
     public static void endGame() {
-        game.playing = false;
+        theGame.playing = false;
     }
 
     public static void restartGame() {
-        game = null;
+        theGame = null;
         newGame();
     }
 
@@ -40,27 +44,44 @@ public class Game {
     }
 
     public static void playGame() {
-        while (game.playing) {
-            if (game.playersTurn) {
-                Console.doShot(game.human);
+        while (theGame.playing) {
+            System.out.println();
+            if (theGame.playerTurn) {
+                Console.doShot(theGame.human, theGame.ai);
             } else {
-//                game.ai.shoot();
+                Console.doShotAI(theGame.ai, theGame.human);
             }
-
-            endGame();
+            if (theGame.human.ships.size() == 0) {
+                System.out.println("Победил " + theGame.ai);
+                endGame();
+            }
+            if (theGame.ai.ships.size() == 0) {
+                System.out.println("Победил " + theGame.human);
+                endGame();
+            }
+            System.out.println();
+            Console.printFields(theGame.human);
         }
     }
 
-    public static Game getGame() {
-        return game;
+
+    public static Game getTheGame() {
+        return theGame;
     }
 
-    public boolean isPlayersTurn() {
-        return playersTurn;
+    public boolean isPlayerTurn() {
+        return playerTurn;
     }
 
-    public void setPlayersTurn(boolean playersTurn) {
-        this.playersTurn = playersTurn;
+    public void setPlayerTurn(boolean playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
+    public PlayerHuman getHuman() {
+        return human;
+    }
+
+    public PlayerAI getAi() {
+        return ai;
+    }
 }

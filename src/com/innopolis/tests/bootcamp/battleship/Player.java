@@ -19,16 +19,19 @@ public abstract class Player {
         this.enemyTemplate.initializeField();
     }
 
-    public void shoot(Cell cell) { //TODO сделать boolean и привязать к playersTurn
-        if (cell.getState().equals(Cell.CellState.DAMAGED) || cell.getState().equals(Cell.CellState.SHOOTED))
-            System.out.println("Данная клетка уже недоступна для стрельбы по ней. Выберите другую.");
-        else {
-            // здесь проверять состояние клетки на поле противника (не на шаблоне)
-
-            //TODO изменение статуса хода
-            Game.getGame().setPlayersTurn(Game.getGame().isPlayersTurn() ? false : true);
+    public void shoot(Player attacker, Player victim, Cell cell) {
+        if (cell.getState().equals(Cell.CellState.EMPTY) || cell.getState().equals(Cell.CellState.OREOL)) {
+            cell.setState(Cell.CellState.SHOOTED);
+            attacker.getEnemyTemplate().getCell(cell.getY(), cell.getX()).setState(Cell.CellState.SHOOTED);
+            System.out.println("-> " + attacker + " промахнулся");
+            Game.getTheGame().setPlayerTurn(Game.getTheGame().isPlayerTurn() ? false : true);
+        } else {
+            if (cell.getState().equals(Cell.CellState.SHIPPED)) {
+                cell.setState(Cell.CellState.DAMAGED);
+                cell.getShip().damagedBy(attacker);
+                attacker.getEnemyTemplate().getCell(cell.getY(), cell.getX()).setState(Cell.CellState.DAMAGED);
+            }
         }
-
     }
 
     public Field getPlayerField() {
@@ -58,4 +61,6 @@ public abstract class Player {
     public ArrayList<Ship> getShips() {
         return ships;
     }
+
+
 }

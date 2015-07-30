@@ -3,7 +3,7 @@ package com.innopolis.tests.bootcamp.battleship;
 public class Cell {
 
     public enum CellState {
-        EMPTY('~'), OCCUPIED('~'), SHIPPED('•'), SHOOTED('o'), DAMAGED('X');
+        EMPTY('~'), OREOL('~'), SHIPPED('•'), SHOOTED('o'), DAMAGED('X');
         private char c;
         CellState(char c){
             this.c=c;
@@ -19,7 +19,7 @@ public class Cell {
     private Ship ship;
 //    private Field field;
 
-    public Cell(int x, int y) {
+    public Cell(int y, int x) {
         this.state = CellState.EMPTY;
         this.ship = null;
         this.x = x;
@@ -45,5 +45,13 @@ public class Cell {
 
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

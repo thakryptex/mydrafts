@@ -22,8 +22,8 @@ public class Field {
         return field;
     }
 
-    public Cell getCell(int x, int y) {
-        return field[x][y];
+    public Cell getCell(int y, int x) {
+        return field[y][x];
     }
 
 }

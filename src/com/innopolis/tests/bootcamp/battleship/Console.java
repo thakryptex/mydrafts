@@ -32,19 +32,34 @@ public class Console {
         }
     }
 
-    public static void doShot(Player player) {
-        System.out.println("¬ведите номер €чейки:");
-        String string = scanner.nextLine();
-        char c1 = string.charAt(0);
-        char c2;
-        int column = c1 % 64;
-        int row;
-        if (string.indexOf(10) > 0) row = 10;
-        else {
-            c2 = string.charAt(1);
-            row = c2 % 47;
+    public static void doShot(Player attacker, Player victim) { //TODO проверку ввода сделать
+        Cell cell;
+        while (true) {
+            System.out.println("¬ведите номер €чейки:");
+            String string = scanner.nextLine();
+            char c1 = string.charAt(0);
+            char c2;
+            int column = c1 % 64;
+            int row;
+            if (string.length() > 2 && string.charAt(1) == 1 && string.charAt(2) == 0)
+                row = 10;
+            else {
+                c2 = string.charAt(1);
+                row = c2 % 48;
+            }
+            cell = victim.getPlayerField().getCellsArray()[row][column];
+            if (cell.getState().equals(Cell.CellState.SHOOTED) || cell.getState().equals(Cell.CellState.DAMAGED))
+                continue;
+            else break;
         }
-        Cell cell = player.getPlayerField().getCellsArray()[column][row];
-        player.shoot(cell);
+        attacker.shoot(attacker, victim, cell);
+    }
+
+    public static void doShotAI(PlayerAI ai, Player victim) {
+        Cell cell = ai.getEnemyCell(victim);
+        int i = cell.getX() + 64;
+        char letter = (char) i;
+        System.out.println(letter + "" + cell.getY());
+        ai.shoot(ai, victim, cell);
     }
 }

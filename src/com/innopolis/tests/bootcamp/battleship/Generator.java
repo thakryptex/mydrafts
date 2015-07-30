@@ -9,7 +9,7 @@ public class Generator {
 
     public static void generateShips(Player p1, Player p2) {
         generatePlayerShips(p1);
-//        p2.getPlayerField();
+        generatePlayerShips(p2);
     }
 
     private static void generatePlayerShips(Player player) {
@@ -40,7 +40,7 @@ public class Generator {
 
             shippingAllowed = checkIfThereShip_Horizontal(x, y, cellsArray, numOfDecks);
             if (shippingAllowed) {
-                Ship ship = new Ship(player);
+                Ship ship = new Ship(player, numOfDecks);
                 markCellsOfShip_Horizontal(x, y, cellsArray, ship, numOfDecks);
                 player.getShips().add(ship);
                 return true;
@@ -50,7 +50,7 @@ public class Generator {
 
             shippingAllowed = checkIfThereShip_Vertical(x, y, cellsArray, numOfDecks);
             if (shippingAllowed) {
-                Ship ship = new Ship(player);
+                Ship ship = new Ship(player, numOfDecks);
                 markCellsOfShip_Vertical(x, y, cellsArray, ship, numOfDecks);
                 player.getShips().add(ship);
                 return true;
@@ -86,7 +86,7 @@ public class Generator {
                     cellsArray[i][j].setState(Cell.CellState.SHIPPED);
                     cellsArray[i][j].setShip(ship);
                 } else {
-                    cellsArray[i][j].setState(Cell.CellState.OCCUPIED);
+                    cellsArray[i][j].setState(Cell.CellState.OREOL);
                 }
             }
         }
@@ -99,7 +99,7 @@ public class Generator {
                     cellsArray[i][j].setState(Cell.CellState.SHIPPED);
                     cellsArray[i][j].setShip(ship);
                 } else {
-                    cellsArray[i][j].setState(Cell.CellState.OCCUPIED);
+                    cellsArray[i][j].setState(Cell.CellState.OREOL);
                 }
             }
         }
