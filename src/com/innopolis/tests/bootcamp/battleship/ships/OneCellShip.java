@@ -1,13 +1,20 @@
 package com.innopolis.tests.bootcamp.battleship.ships;
 
-import com.innopolis.tests.bootcamp.battleship.Cell;
+import com.innopolis.tests.bootcamp.battleship.Player;
 import com.innopolis.tests.bootcamp.battleship.Ships;
 
 public class OneCellShip extends Ships {
 
-    static int counterP1;
-    static int counterP2;
+    public static int counterP1;
+    public static int counterP2;
 
-    public OneCellShip() {
+
+    public OneCellShip(Player player, int decksLeft) {
+        super(player, decksLeft);
+        this.decksLeft = 1;
+    }
+
+    public static int getDecksAmount() {
+        return 1;
     }
 }

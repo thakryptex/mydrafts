@@ -3,21 +3,27 @@ package com.innopolis.tests.bootcamp.battleship;
 public class Field {
 
     private Cell[][] field;
+    private Player player;
 
-    public Field() {
-        field = new Cell[10][10];
+    public Field(Player player) {
+        this.player = player;
+        field = new Cell[12][12];
     }
 
     public void initializeField() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 12; j++) {
                 this.field[i][j] = new Cell(i, j);
             }
         }
     }
 
-    public Cell[][] getFieldOfCells() {
+    public Cell[][] getCellsArray() {
         return field;
+    }
+
+    public Cell getCell(int x, int y) {
+        return field[x][y];
     }
 
 }

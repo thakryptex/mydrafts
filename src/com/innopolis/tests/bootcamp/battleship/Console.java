@@ -15,18 +15,18 @@ public class Console {
         System.out.println("       ¬аше поле:                ѕоле противника:");
         System.out.print("   A B C D E F G H I J");
         System.out.println("         A B C D E F G H I J");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 11; i++) {
 
-            if (i == 9) System.out.print((i + 1) + " "); // лева€ таблица
-            else System.out.print(" " + (i+1) + " ");
-            for (int j = 0; j < 10; j++) {
-                System.out.print(player.getPlayerField().getFieldOfCells()[i][j] + " ");
+            if (i == 10) System.out.print(i + " "); // лева€ таблица
+            else System.out.print(" " + i + " ");
+            for (int j = 1; j < 11; j++) {
+                System.out.print(player.getPlayerField().getCellsArray()[i][j] + " ");
             }
 
-            if (i == 9) System.out.print("     " + (i+1) + " "); // права€ таблица
-            else System.out.print("      " + (i+1) + " ");
-            for (int k = 0; k < 10; k++) {
-                System.out.print(player.getEnemyTemplate().getFieldOfCells()[i][k] + " ");
+            if (i == 10) System.out.print("     " + i + " "); // права€ таблица
+            else System.out.print("      " + i + " ");
+            for (int k = 1; k < 11; k++) {
+                System.out.print(player.getEnemyTemplate().getCellsArray()[i][k] + " ");
             }
             System.out.println();
         }
@@ -37,14 +37,14 @@ public class Console {
         String string = scanner.nextLine();
         char c1 = string.charAt(0);
         char c2;
-        int column = c1 % 65;
+        int column = c1 % 64;
         int row;
-        if (string.indexOf(10) > 0) row = 9;
+        if (string.indexOf(10) > 0) row = 10;
         else {
             c2 = string.charAt(1);
-            row = c2 % 48;
+            row = c2 % 47;
         }
-        Cell cell = player.getPlayerField().getFieldOfCells()[column][row];
+        Cell cell = player.getPlayerField().getCellsArray()[column][row];
         player.shoot(cell);
     }
 }

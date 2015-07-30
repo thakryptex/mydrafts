@@ -1,17 +1,20 @@
 package com.innopolis.tests.bootcamp.battleship;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Player {
 
     protected String name;
     protected ArrayList<Cell[]> ships = new ArrayList<>();
+     Map<String, Integer> mapCounter = new HashMap<>();
     protected Field playerField;
     protected Field enemyTemplate;
 
     public void createField() {
-        this.playerField = new Field();
-        this.enemyTemplate = new Field();
+        this.playerField = new Field(this);
+        this.enemyTemplate = new Field(this);
         this.playerField.initializeField();
         this.enemyTemplate.initializeField();
     }
@@ -52,4 +55,7 @@ public abstract class Player {
         this.name = name;
     }
 
+    public ArrayList<Cell[]> getShips() {
+        return ships;
+    }
 }

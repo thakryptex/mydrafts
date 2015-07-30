@@ -32,7 +32,7 @@ public class Game {
     }
 
     public void startGame() {
-        Console.whatIsYourName(human);
+//        Console.whatIsYourName(human); // никакой роли не играет пока в принципе
         human.createField();
         ai.createField();
         Generator.generateShips(human, ai);
