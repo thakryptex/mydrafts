@@ -57,12 +57,14 @@ public class Game implements Serializable {
                 System.out.println("Победил " + theGame.ai);
                 System.out.println("========================");
                 endGame();
+                Console.restart();
             }
             if (theGame.ai.ships.size() == 0) {
                 System.out.println("========================");
                 System.out.println("Победил " + theGame.human);
                 System.out.println("========================");
                 endGame();
+                Console.restart();
             }
             System.out.println();
             Console.printFields(theGame.human);

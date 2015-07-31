@@ -53,7 +53,7 @@ public class Console {
         return i;
     }
 
-    public static void doShot(Player attacker, Player victim) throws Exception { //TODO проверку ввода сделать
+    public static void doShot(Player attacker, Player victim) throws Exception {
         Cell cell;
         while (true) {
             System.out.println("Введите номер ячейки:");
@@ -82,11 +82,22 @@ public class Console {
         attacker.shoot(attacker, victim, cell);
     }
 
-    public static void doShotAI(PlayerAI ai, Player victim) {
+    public static void doShotAI(PlayerAI ai, Player victim) { //TODO сделать стрельбу неслучайной
         Cell cell = ai.getEnemyCell(victim);
         int i = cell.getX() + 64;
         char letter = (char) i;
         System.out.println(letter + "" + cell.getY());
         ai.shoot(ai, victim, cell);
+    }
+
+    public static void restart() {
+        System.out.println("Хотите начать новую игру?");
+        System.out.println("1 - Да");
+        System.out.println("2 - Нет");
+        while (true) {
+            int i = Integer.parseInt(scanner.nextLine());
+            if (i == 1) Game.restartGame();
+            else if (i == 2) System.exit(1);
+        }
     }
 }

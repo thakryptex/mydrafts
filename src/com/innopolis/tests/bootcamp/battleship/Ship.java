@@ -24,7 +24,7 @@ public class Ship implements Serializable {
         else this.destroyedBy(attacker);
     }
 
-    public void destroyedBy(Player attacker) { // TODO какого-то хуя он не делает ореол
+    public void destroyedBy(Player attacker) { // TODO хер пойми почему он не делает ореол
         for (int i = 0; i < cells.size(); i++) {
             int x = cells.get(i).getX();
             int y = cells.get(i).getY();
