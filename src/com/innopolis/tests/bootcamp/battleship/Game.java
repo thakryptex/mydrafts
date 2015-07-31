@@ -10,7 +10,7 @@ public class Game implements Serializable {
 
     private boolean playerTurn;
     private boolean playing;
-    private PlayerHuman human;
+    private Player human;
     private PlayerAI ai;
 
     public Game() {
@@ -18,13 +18,25 @@ public class Game implements Serializable {
         this.playing = true;
         this.human = new PlayerHuman();
         this.ai = new PlayerAI();
+    }
 
+    public Game(PlayerAI ai) {
+        this.playerTurn = true;
+        this.playing = true;
+        this.human = ai;
+        this.ai = new PlayerAI();
     }
 
     public static void newGame() {
         Game game = new Game();
         theGame = game;
         game.startGame();
+    }
+
+    public static void newGame(PlayerAI ai) throws Exception {
+        Game game = new Game();
+        theGame = game;
+        game.startGame(ai);
     }
 
     public static void endGame() {
@@ -36,12 +48,25 @@ public class Game implements Serializable {
         newGame();
     }
 
+    public static void restartGame(PlayerAI ai) throws Exception {
+        theGame = null;
+        Console.launchGame();
+    }
+
     public void startGame() {
-//        Console.whatIsYourName(human); // никакой роли не играет пока в принципе
         human.createField();
         ai.createField();
         Generator.generateShips(human, ai);
         Console.printFields(human);
+//        Console.printFields(ai); //TODO удалить
+    }
+
+    public void startGame(PlayerAI comp) throws Exception {
+        comp.createField();
+        ai.createField();
+        Generator.generateShips(comp, ai);
+        Console.printFields(comp, ai);
+        Game.playGame(comp, ai);
     }
 
     public static void playGame() throws Exception {
@@ -53,21 +78,57 @@ public class Game implements Serializable {
                 Console.doShotAI(theGame.ai, theGame.human);
             }
             if (theGame.human.ships.size() == 0) {
-                System.out.println("========================");
-                System.out.println("Победил " + theGame.ai);
-                System.out.println("========================");
+                System.out.println();
+                System.out.println("===========================");
+                System.out.println("    Победил " + theGame.ai + "!!!");
+                System.out.println("===========================");
+                System.out.println();
                 endGame();
                 Console.restart();
             }
             if (theGame.ai.ships.size() == 0) {
-                System.out.println("========================");
-                System.out.println("Победил " + theGame.human);
-                System.out.println("========================");
+                System.out.println();
+                System.out.println("===========================");
+                System.out.println("    Победил " + theGame.human + "!!!");
+                System.out.println("===========================");
+                System.out.println();
                 endGame();
                 Console.restart();
             }
             System.out.println();
             Console.printFields(theGame.human);
+//            Console.printFields(theGame.ai); //TODO удалить
+        }
+    }
+
+    public static void playGame(PlayerAI ai1, PlayerAI ai2) throws Exception {
+        while (theGame.playing) {
+            System.out.println();
+            if (theGame.playerTurn) {
+                Console.doShotAI(ai1, ai2);
+            } else {
+                Console.doShotAI(ai2, ai1);
+            }
+            if (ai1.ships.size() == 0) {
+                System.out.println();
+                System.out.println("===========================");
+                System.out.println("    Победил " + ai2.getName() + "!!!");
+                System.out.println("===========================");
+                System.out.println();
+                endGame();
+                Game.restartGame(ai1);
+            }
+            if (ai2.ships.size() == 0) {
+                System.out.println();
+                System.out.println("===========================");
+                System.out.println("    Победил " + ai1.getName() + "!!!");
+                System.out.println("===========================");
+                System.out.println();
+                endGame();
+                Game.restartGame(ai1);
+            }
+            System.out.println();
+            Console.printFields(ai1, ai2);
         }
     }
 
@@ -105,7 +166,7 @@ public class Game implements Serializable {
         this.playerTurn = playerTurn;
     }
 
-    public PlayerHuman getHuman() {
+    public Player getHuman() {
         return human;
     }
 

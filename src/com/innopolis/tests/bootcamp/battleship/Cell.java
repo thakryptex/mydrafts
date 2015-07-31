@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Cell implements Serializable {
 
     public enum CellState {
-        EMPTY('~'), OREOL('~'), SHIPPED('•'), SHOOTED('o'), DAMAGED('X');
+        EMPTY('.'), OREOL('.'), SHIPPED('•'), SHOOTED('o'), DAMAGED('X');
         private char c;
         CellState(char c){
             this.c=c;

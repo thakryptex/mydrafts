@@ -11,6 +11,10 @@ public class PlayerAI extends Player implements Serializable {
         this.name = "Computer";
     }
 
+    public PlayerAI(String name) {
+        this.name = name;
+    }
+
     public Cell getEnemyCell(Player victim) {
         Cell cell;
         while (true) {
